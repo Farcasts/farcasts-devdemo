@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Aster, a fictional single origin coffee brand. Standalone third party demo site for
-  the DEV farcasts applier. Deployed on its OWN origin (devdemo.farcasts.com), a different
+  Halo, a fictional clinical dermatology skincare brand. Standalone third party demo site
+  for the DEV farcasts applier. Deployed on its OWN origin (devdemo.farcasts.com), a different
   origin from dev.farcasts.com, so it exercises the real cross origin path exactly as a
   customer site would. The gated hero surfaces below carry the embed contract.
 -->
@@ -9,114 +9,103 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aster, coffee for the still hour</title>
-  <meta name="description" content="Aster is a single origin coffee roasted for the quiet hour. Small lots, roasted to order, shipped the week they are ready." />
-  <link rel="stylesheet" href="aster.css" />
+  <title>Halo, clinical skincare for calm, considered results</title>
+  <meta name="description" content="Halo is a clinical dermatology skincare line. Short ingredient lists, dermatologist tested formulas, and a routine you can actually keep." />
+  <link rel="stylesheet" href="halo.css" />
   <style>
-    /* Home only. Hero composition and the manifesto, tenets, and lot preview blocks. */
-    .hero { padding-top: clamp(56px, 9vw, 104px); padding-bottom: clamp(40px, 6vw, 72px); }
-    .hero-grid {
-      display: grid; grid-template-columns: 1.05fr .95fr;
-      gap: clamp(28px, 5vw, 64px); align-items: end;
-    }
+    /* Home only. Hero composition, manifesto, promise, and shop preview. */
+    .hero { padding-top: clamp(52px, 8vw, 96px); padding-bottom: clamp(40px, 6vw, 72px); }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 5vw, 64px); align-items: end; }
     .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
     .hero-eyebrow .divider { flex: 1; height: 1px; background: var(--line); }
-    #hero-headline { max-width: 14ch; margin: 0 0 26px; }
-    #hero-sub { max-width: 40ch; margin: 0 0 34px; }
+    #hero-headline { max-width: 15ch; margin: 0 0 24px; }
+    #hero-sub { max-width: 42ch; margin: 0 0 32px; }
     .hero-actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-    .hero-meta {
-      font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--moss-dim);
-    }
+    .hero-meta { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--steel-dim); }
     .hero-figure { position: relative; }
-    #hero-image {
-      width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
-      background: var(--paper-2); border: 1px solid var(--line);
-    }
+    #hero-image { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--panel); border: 1px solid var(--line); }
     .hero-figure figcaption {
       position: absolute; left: 14px; bottom: 14px;
       font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--paper); background: rgba(28,38,32,.62); padding: 6px 10px; backdrop-filter: blur(2px);
+      color: #fff; background: rgba(21,26,36,.6); padding: 6px 10px; backdrop-filter: blur(2px);
     }
-    .hero-index {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-      background: var(--line); border: 1px solid var(--line);
-      margin-top: clamp(40px, 6vw, 72px);
-    }
-    .hero-index div { background: var(--paper); padding: 20px 22px; }
-    .hero-index dt {
-      font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--moss-dim); margin-bottom: 8px;
-    }
-    .hero-index dd { margin: 0; font-family: var(--display); font-size: 19px; }
+    .hero-index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: clamp(40px, 6vw, 72px); }
+    .hero-index div { background: var(--porcelain); padding: 20px 22px; }
+    .hero-index dt { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--steel-dim); margin-bottom: 8px; }
+    .hero-index dd { margin: 0; font-family: var(--display); font-size: 18px; font-weight: 600; }
 
     /* Manifesto */
     .manifesto { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(28px, 6vw, 90px); }
-    .manifesto p { font-family: var(--display); font-size: clamp(21px, 2.6vw, 30px); line-height: 1.42; margin: 0 0 24px; }
+    .manifesto p { font-family: var(--display); font-weight: 500; font-size: clamp(21px, 2.5vw, 29px); line-height: 1.34; margin: 0 0 22px; letter-spacing: -.015em; }
     .manifesto p:last-child { margin-bottom: 0; }
-    .manifesto .drop::first-letter {
-      font-size: 3.4em; line-height: .8; float: left; padding: 6px 12px 0 0; color: var(--stamen);
-    }
+    .manifesto p .hl { color: var(--slate); }
     .manifesto-side .eyebrow { margin-bottom: 18px; }
     .manifesto-side .mark { margin-top: 4px; }
 
-    /* Tenets */
-    .tenets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
-    .tenet { background: var(--paper); padding: clamp(28px, 4vw, 48px) clamp(22px, 3vw, 36px); }
-    .tenet .no { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--stamen); }
-    .tenet h3 { margin: 18px 0 10px; }
-    .tenet p { color: var(--moss); font-size: 15px; margin: 0; max-width: 32ch; }
+    /* Promise (real 3-step regimen, so numbering is warranted) */
+    .promise { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+    .step { background: var(--porcelain); padding: clamp(28px, 4vw, 48px) clamp(22px, 3vw, 36px); }
+    .step .no { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--slate); }
+    .step h3 { margin: 18px 0 10px; }
+    .step p { color: var(--steel); font-size: 15px; margin: 0; max-width: 32ch; }
 
-    /* Lot preview */
-    .lots-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 40px; }
-    .lots { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 3vw, 34px); }
-    .lot { text-decoration: none; color: inherit; display: block; }
-    .lot-swatch {
-      aspect-ratio: 5 / 6; border: 1px solid var(--line);
-      position: relative; overflow: hidden; transition: transform .3s ease;
+    /* Shop preview */
+    .shop-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 40px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 3vw, 30px); }
+    .card { display: flex; flex-direction: column; }
+    .card-figure { aspect-ratio: 1 / 1; border: 1px solid var(--line); position: relative; overflow: hidden; background: var(--panel); }
+    .card-figure img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+    .card:hover .card-figure img { transform: scale(1.03); }
+    .card-figure .code { position: absolute; top: 12px; left: 12px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: #fff; background: rgba(21,26,36,.6); padding: 4px 8px; backdrop-filter: blur(2px); }
+    .card-figure .quick {
+      position: absolute; inset: auto 12px 12px; opacity: 0; transform: translateY(6px);
+      transition: opacity .25s ease, transform .25s ease;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      background: color-mix(in srgb, var(--porcelain) 90%, transparent); border: 1px solid var(--line);
+      padding: 9px 12px; text-align: center; cursor: pointer; color: var(--ink);
     }
-    .lot-swatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .lot:hover .lot-swatch { transform: translateY(-4px); }
-    .lot-swatch .no {
-      position: absolute; top: 14px; left: 14px; font-family: var(--mono); font-size: 10px;
-      letter-spacing: .12em; color: var(--paper); background: rgba(28,38,32,.62);
-      padding: 4px 8px; backdrop-filter: blur(2px);
-    }
-    .lot-name { display: block; font-family: var(--display); font-size: 20px; margin-top: 14px; }
-    .lot-foot { display: flex; justify-content: space-between; margin-top: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; }
-    .lot-foot .region { color: var(--moss); }
+    .card:hover .card-figure .quick, .card-figure .quick:focus-visible { opacity: 1; transform: translateY(0); }
+    .card-body { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 14px; }
+    .card-name { font-family: var(--display); font-size: 19px; font-weight: 600; }
+    .card-tag { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--steel); margin-top: 4px; }
+    .card-price { font-family: var(--display); font-size: 18px; font-weight: 600; }
+    .card-add { margin-top: 14px; }
+    .card-add .btn { width: 100%; justify-content: center; }
 
     @media (max-width: 860px) {
       .hero-grid { grid-template-columns: 1fr; align-items: start; }
       .hero-figure { order: -1; }
       #hero-image { aspect-ratio: 16 / 11; }
       .manifesto { grid-template-columns: 1fr; }
-      .tenets, .lots, .hero-index { grid-template-columns: 1fr; }
-      .lots { gap: 20px; }
+      .promise, .cards, .hero-index { grid-template-columns: 1fr; }
+      .cards { gap: 24px; }
     }
-    @media (max-width: 520px) {
-      .hero-index { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 520px) { .hero-index { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
+  <div class="announce">
+    <span>Free clinical consult with any set</span> <b>&middot;</b> <span>Free shipping over $50</span>
+  </div>
+
   <header class="site-head">
     <div class="shell">
-      <a class="wordmark" href="index.html" aria-label="Aster, home">
+      <a class="wordmark" href="index.html" aria-label="Halo, home">
         <span class="mark" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3">
-            <circle cx="20" cy="20" r="3.2" fill="currentColor" stroke="none"/>
-            <path d="M20 17V5M20 23v12M17 20H5M23 20h12"/>
-            <path d="M17.2 17.2 8.7 8.7M22.8 22.8l8.5 8.5M22.8 17.2l8.5-8.5M17.2 22.8 8.7 31.3"/>
+          <svg width="24" height="24" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3">
+            <circle cx="20" cy="20" r="2.6" fill="currentColor" stroke="none"/>
+            <circle cx="20" cy="20" r="11"/><circle cx="20" cy="20" r="16.5" opacity=".45"/>
           </svg>
         </span>
-        <span class="letters">ASTER</span>
+        <span class="letters">HALO</span>
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="menu.html">Field Guide</a>
+        <a href="shop.html">Shop</a>
         <a href="story.html">Story</a>
-        <a href="visit.html">Visit</a>
-        <a class="nav__cta btn" href="menu.html" style="padding:11px 20px;">Shop lots</a>
+        <a href="clinic.html">Clinic</a>
+        <a class="cart-btn" href="#" data-open-cart aria-label="Open bag">
+          Bag <span class="cart-count" data-cart-count data-count="0">0</span>
+        </a>
       </nav>
     </div>
   </header>
@@ -126,124 +115,209 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <div class="hero-eyebrow">
-            <span class="eyebrow">Est. 2019 &nbsp;&middot;&nbsp; Roasted in small lots</span>
+            <span class="eyebrow">Dermatologist tested &nbsp;&middot;&nbsp; Est. 2021</span>
             <span class="divider"></span>
           </div>
-          <h1 class="display" id="hero-headline" data-farcasts-gate>A quieter cup for the loud part of the day.</h1>
-          <p class="lede" id="hero-sub" data-farcasts-gate>Single origin, slow roasted, and shipped the week it is ready. No haste in the cup.</p>
+          <h1 class="display" id="hero-headline" data-farcasts-gate>Fewer steps. Clearer skin. Nothing you can't pronounce.</h1>
+          <p class="lede" id="hero-sub" data-farcasts-gate>Halo is a clinical line built on short ingredient lists and formulas that earn their place. A routine you can actually keep.</p>
           <div class="hero-actions">
-            <a class="btn" id="hero-cta" href="menu.html" data-farcasts-gate>Start your ritual <span class="arrow" aria-hidden="true">&rarr;</span></a>
-            <span class="hero-meta">Free shipping over $40</span>
+            <a class="btn" id="hero-cta" href="shop.html" data-farcasts-gate>Build your routine <span class="arrow" aria-hidden="true">&rarr;</span></a>
+            <span class="hero-meta">30 day results guarantee</span>
           </div>
         </div>
         <figure class="hero-figure">
-          <img id="hero-image" data-farcasts-gate src="assets/hero-pour.jpg" alt="A slow morning pour, steam rising in low light" />
-          <figcaption>The still hour &middot; No. 04 Halo</figcaption>
+          <img id="hero-image" data-farcasts-gate src="assets/hero-serum.jpg" alt="A frosted glass Halo serum on a porcelain surface in soft clinical light" />
+          <figcaption>Reservoir &middot; No. HY-01</figcaption>
         </figure>
       </div>
 
       <dl class="hero-index">
-        <div><dt>Roast cadence</dt><dd>To order, weekly</dd></div>
-        <div><dt>Sourcing</dt><dd>One farm, one lot</dd></div>
-        <div><dt>Ships within</dt><dd>48 hours of roast</dd></div>
+        <div><dt>Formulation</dt><dd>Short lists, no filler</dd></div>
+        <div><dt>Testing</dt><dd>Dermatologist reviewed</dd></div>
+        <div><dt>Fragrance</dt><dd>None added</dd></div>
       </dl>
     </section>
 
     <section class="section shell manifesto">
       <div class="manifesto-side">
-        <p class="eyebrow">The still hour</p>
+        <p class="eyebrow">The Halo idea</p>
         <span class="mark" aria-hidden="true">
           <svg width="52" height="52" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1">
-            <circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/>
-            <path d="M20 17V4M20 23v13M17 20H4M23 20h13M17.2 17.2 7.5 7.5M22.8 22.8l9.7 9.7M22.8 17.2l9.7-9.7M17.2 22.8 7.5 32.5"/>
-            <circle cx="20" cy="20" r="9.5" opacity=".5"/>
+            <circle cx="20" cy="20" r="2.4" fill="currentColor" stroke="none"/>
+            <circle cx="20" cy="20" r="11"/><circle cx="20" cy="20" r="16.5" opacity=".45"/>
           </svg>
         </span>
       </div>
       <div class="manifesto-body">
-        <p class="drop">The aster opens late, when the day has gone quiet and the light turns long. We roast for that hour. The one before the noise, or the one you keep after it.</p>
-        <p>Every lot is a single farm, roasted to order, and out the door within two days. Nothing sits. Nothing waits on a shelf until the brightness has left it.</p>
+        <p>Skincare got loud. Ten step routines, a shelf of half used jars, actives fighting each other on your face. We wanted the <span class="hl">opposite</span>.</p>
+        <p>Every Halo formula is a short list of proven ingredients at a dose that does something, reviewed by a dermatologist, and tested until it earns a place in your routine.</p>
       </div>
     </section>
 
-    <section class="tenets">
-      <article class="tenet">
-        <span class="no">No. 01</span>
-        <h3 class="display">Slow roasted</h3>
-        <p>Small batches, roasted to order, never sitting on a shelf until the character fades.</p>
+    <section class="promise">
+      <article class="step">
+        <span class="no">Step 01</span>
+        <h3 class="display">Cleanse</h3>
+        <p>Lift the day off without stripping the barrier. Clean skin that never feels tight.</p>
       </article>
-      <article class="tenet">
-        <span class="no">No. 02</span>
-        <h3 class="display">Single origin</h3>
-        <p>One farm, one lot, traceable to the row it grew in and the hands that picked it.</p>
+      <article class="step">
+        <span class="no">Step 02</span>
+        <h3 class="display">Treat</h3>
+        <p>One active, correctly dosed, for the concern you actually have. No guesswork, no overlap.</p>
       </article>
-      <article class="tenet">
-        <span class="no">No. 03</span>
-        <h3 class="display">Shipped fresh</h3>
-        <p>Out the door within forty eight hours of roast, at the very peak of the bean.</p>
+      <article class="step">
+        <span class="no">Step 03</span>
+        <h3 class="display">Seal</h3>
+        <p>Lock in the layers below with a barrier cream or oil, so the work you did holds overnight.</p>
       </article>
     </section>
 
     <section class="section shell">
-      <div class="lots-head">
+      <div class="shop-head">
         <div>
-          <p class="eyebrow" style="margin-bottom:14px;">From the field guide</p>
-          <h2 class="display">This season&rsquo;s lots</h2>
+          <p class="eyebrow" style="margin-bottom:14px;">From the shelf</p>
+          <h2 class="display">Where most people start</h2>
         </div>
-        <a class="btn btn--ghost" href="menu.html">See all lots <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--ghost" href="shop.html">Shop all &middot; 20 products <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </div>
-      <div class="lots">
-        <a class="lot" href="menu.html">
-          <div class="lot-swatch"><span class="no">No. 01</span><img src="assets/lot-dawnline.jpg" alt="Dawnline, a coffee branch with ripe cherries at dawn" loading="lazy" /></div>
-          <span class="lot-name">Dawnline</span>
-          <div class="lot-foot"><span class="region">Huila, Colombia</span><span>$21</span></div>
-        </a>
-        <a class="lot" href="menu.html">
-          <div class="lot-swatch"><span class="no">No. 02</span><img src="assets/lot-ember.jpg" alt="Ember Field, coffee blossom and floral spray" loading="lazy" /></div>
-          <span class="lot-name">Ember Field</span>
-          <div class="lot-foot"><span class="region">Yirgacheffe, Ethiopia</span><span>$23</span></div>
-        </a>
-        <a class="lot" href="menu.html">
-          <div class="lot-swatch"><span class="no">No. 03</span><img src="assets/lot-nightbloom.jpg" alt="Nightbloom, deep ripe cherries and a dark flower" loading="lazy" /></div>
-          <span class="lot-name">Nightbloom</span>
-          <div class="lot-foot"><span class="region">Antigua, Guatemala</span><span>$22</span></div>
-        </a>
+      <div class="cards">
+        <article class="card">
+          <div class="card-figure">
+            <span class="code">No. HY-01</span>
+            <img src="assets/prod-serum-a.jpg" alt="Reservoir triple hyaluronic serum" loading="lazy" />
+            <button class="quick" type="button" data-quick="hy-01">Quick view</button>
+          </div>
+          <div class="card-body">
+            <div><span class="card-name">Reservoir</span><div class="card-tag">Serum &middot; Hydration</div></div>
+            <span class="card-price">$46</span>
+          </div>
+          <div class="card-add"><button class="btn btn--sm" type="button" data-add="hy-01">Add to bag</button></div>
+        </article>
+        <article class="card">
+          <div class="card-figure">
+            <span class="code">No. BR-02</span>
+            <img src="assets/prod-serum-b.jpg" alt="Clearday vitamin C serum" loading="lazy" />
+            <button class="quick" type="button" data-quick="br-02">Quick view</button>
+          </div>
+          <div class="card-body">
+            <div><span class="card-name">Clearday</span><div class="card-tag">Serum &middot; Brightening</div></div>
+            <span class="card-price">$54</span>
+          </div>
+          <div class="card-add"><button class="btn btn--sm" type="button" data-add="br-02">Add to bag</button></div>
+        </article>
+        <article class="card">
+          <div class="card-figure">
+            <span class="code">No. MO-05</span>
+            <img src="assets/prod-cream-a.jpg" alt="Daylong barrier day cream" loading="lazy" />
+            <button class="quick" type="button" data-quick="mo-05">Quick view</button>
+          </div>
+          <div class="card-body">
+            <div><span class="card-name">Daylong</span><div class="card-tag">Cream &middot; Hydration</div></div>
+            <span class="card-price">$48</span>
+          </div>
+          <div class="card-add"><button class="btn btn--sm" type="button" data-add="mo-05">Add to bag</button></div>
+        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-foot">
     <div class="shell">
-      <div class="foot-grid" style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;">
-        <div class="foot-brand">
-          <span class="letters">ASTER</span>
-          <p class="foot-note">Single origin coffee roasted for the still hour. Small lots, roasted to order, shipped the week they are ready.</p>
-        </div>
-        <div class="foot-col">
-          <h4>Explore</h4>
-          <a href="menu.html">Field Guide</a>
-          <a href="story.html">Our Story</a>
-          <a href="visit.html">Visit the Roastery</a>
-        </div>
-        <div class="foot-col">
-          <h4>Care</h4>
-          <a href="visit.html">Contact</a>
-          <a href="visit.html">Wholesale</a>
-          <a href="visit.html">Shipping &amp; returns</a>
-        </div>
+      <div class="foot-brand">
+        <span class="letters">HALO</span>
+        <p class="foot-note">Clinical dermatology skincare. Short ingredient lists, dermatologist tested formulas, and a routine you can actually keep.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Shop</h4>
+        <a href="shop.html">All products</a>
+        <a href="shop.html">Serums</a>
+        <a href="shop.html">Sets</a>
+      </div>
+      <div class="foot-col">
+        <h4>Care</h4>
+        <a href="clinic.html">Book a consult</a>
+        <a href="clinic.html">Contact</a>
+        <a href="clinic.html">Shipping &amp; returns</a>
       </div>
       <div class="foot-legal">
-        <span>&copy; 2026 Aster Coffee Roasters</span>
+        <span>&copy; 2026 Halo Skincare</span>
         <span>A demonstration site for farcasts adaptive testing</span>
       </div>
     </div>
   </footer>
+
+  <!-- ============ store overlays (shared across pages) ============ -->
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping bag">
+    <div class="cart-head">
+      <h2>Your bag</h2>
+      <button class="icon-btn" type="button" data-close="cart" aria-label="Close bag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-foot">
+      <div class="cart-total"><span class="lbl">Subtotal</span><span class="amt" id="cart-total">$0</span></div>
+      <a class="btn btn--slate" href="clinic.html">Checkout <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      <p class="fine">Demonstration bag. Nothing is charged.</p>
+    </div>
+  </aside>
+
+  <div class="modal" id="quickview" role="dialog" aria-modal="true" aria-label="Product quick view">
+    <div class="modal-card">
+      <button class="icon-btn qv-close" type="button" data-close="quickview" aria-label="Close quick view">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="qv-figure"><img src="assets/prod-serum-a.jpg" alt="" /></div>
+      <div class="qv-body">
+        <span class="qv-tag"></span>
+        <h3 class="display"></h3>
+        <span class="qv-code"></span>
+        <p class="qv-desc"></p>
+        <dl class="qv-spec"></dl>
+        <div class="qv-buy">
+          <span class="price qv-price"></span>
+          <button class="btn btn--slate" type="button" data-qv-add="">Add to bag <span class="arrow" aria-hidden="true">&rarr;</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pop" id="newsletter-pop" role="dialog" aria-modal="true" aria-label="Newsletter">
+    <div class="pop-card">
+      <button class="icon-btn qv-close" type="button" data-close="pop" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <span class="mark" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.1">
+          <circle cx="20" cy="20" r="2.4" fill="currentColor" stroke="none"/><circle cx="20" cy="20" r="11"/><circle cx="20" cy="20" r="16.5" opacity=".45"/>
+        </svg>
+      </span>
+      <h2>Ten percent, and a clearer routine.</h2>
+      <p>Join the list for a first order discount and the occasional note from the lab. No noise.</p>
+      <form class="pop-form" id="pop-form">
+        <input type="email" name="email" placeholder="you@email.com" autocomplete="email" required aria-label="Email address" />
+        <button class="btn btn--slate" type="submit">Join</button>
+      </form>
+      <p class="pop-fine">A demonstration form. Nothing is sent.</p>
+    </div>
+  </div>
+
+  <div class="sticky-promo" id="sticky-promo">
+    <span class="sp-txt"><b>New</b> &nbsp;The Short List routine, $96</span>
+    <a class="btn btn--slate" href="shop.html">Shop the set</a>
+    <button class="icon-btn" type="button" data-close="promo" aria-label="Dismiss promotion">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
 
   <!--
     Published at devdemo.farcasts.com. Points at the DEV applier (dev.farcasts.com)
     with the devdemo project id p_c2d58db6-f83d-4453-9de2-6e2c937bc242. Do not change
     these values. For local testing, git stash pop the localhost variant instead of editing.
   -->
+  <script src="store.js"></script>
   <script src="https://dev.farcasts.com/farcasts.js" data-cfasync="false" data-farcasts-project="p_c2d58db6-f83d-4453-9de2-6e2c937bc242"></script>
   <script async src="https://dev.farcasts.com/farcasts-track.js" data-cfasync="false" data-farcasts-project="p_c2d58db6-f83d-4453-9de2-6e2c937bc242" data-farcasts-track-endpoint="https://t.farcasts.com" data-farcasts-track-key="phc_CzXwcg28Mo4jd6gqGcXaTSQUXFjxFFjnMvfXhrqwiVsc"></script>
 </body>
