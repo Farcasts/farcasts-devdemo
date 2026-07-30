@@ -110,6 +110,8 @@ function openQuickView(id) {
   modal.querySelector(".qv-spec").innerHTML = Object.entries(p.spec)
     .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
   modal.querySelector("[data-qv-add]").dataset.qvAdd = p.id;
+  const full = modal.querySelector(".qv-full");
+  if (full) full.href = `products/${p.id}.html`;
   modal.classList.add("open");
   scrim()?.classList.add("open");
 }
