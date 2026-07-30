@@ -1,0 +1,323 @@
+<!doctype html>
+<!-- Halo, Shop. Cross origin demo site for the farcasts applier. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop, Halo</title>
+  <meta name="description" content="The full Halo shelf. Serums, creams, cleansers, oils, masks, and sets, filtered by the concern you actually have." />
+  <link rel="stylesheet" href="halo.css" />
+  <style>
+    .page-head { padding-top: clamp(44px, 6vw, 84px); }
+    .page-head .eyebrow { margin-bottom: 18px; }
+    .page-head h1 { max-width: 18ch; }
+    .page-head .lede { max-width: 48ch; margin: 22px 0 0; }
+
+    .shop-layout { display: grid; grid-template-columns: 220px 1fr; gap: clamp(28px, 4vw, 56px); align-items: start; margin-top: clamp(36px, 5vw, 64px); }
+
+    /* sidebar */
+    .side { position: sticky; top: 88px; }
+    .side-group + .side-group { margin-top: 34px; }
+    .side-group h3 { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--steel-dim); margin: 0 0 14px; }
+    .side-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+    .side-list li { border-bottom: 1px solid var(--line-soft); }
+    .side-list button {
+      width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+      font-family: var(--body); font-size: 15px; color: var(--steel); padding: 11px 0;
+      display: flex; justify-content: space-between; align-items: center; transition: color .2s;
+    }
+    .side-list button:hover { color: var(--ink); }
+    .side-list button.active { color: var(--slate); font-weight: 500; }
+    .side-list button .n { font-family: var(--mono); font-size: 11px; color: var(--steel-dim); }
+    .side-list button.active .n { color: var(--slate); }
+
+    .concern-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .concern-chips button {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+      background: #fff; border: 1px solid var(--line); color: var(--steel); padding: 8px 12px; cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .concern-chips button:hover { border-color: var(--slate); color: var(--ink); }
+    .concern-chips button.active { background: var(--slate); border-color: var(--slate); color: #fff; }
+
+    /* results */
+    .results-bar { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--ink); margin-bottom: clamp(24px, 3vw, 36px); }
+    .results-bar #result-count { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--steel); }
+    .results-bar .sort { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--steel-dim); }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2.4vw, 30px); }
+    .card { display: flex; flex-direction: column; }
+    .card[hidden] { display: none; }
+    .card-figure { aspect-ratio: 1 / 1; border: 1px solid var(--line); position: relative; overflow: hidden; background: var(--panel); }
+    .card-figure img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+    .card:hover .card-figure img { transform: scale(1.03); }
+    .card-figure .code { position: absolute; top: 12px; left: 12px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: #fff; background: rgba(21,26,36,.6); padding: 4px 8px; backdrop-filter: blur(2px); }
+    .card-figure .quick {
+      position: absolute; inset: auto 12px 12px; opacity: 0; transform: translateY(6px);
+      transition: opacity .25s ease, transform .25s ease;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      background: color-mix(in srgb, var(--porcelain) 90%, transparent); border: 1px solid var(--line);
+      padding: 9px 12px; text-align: center; cursor: pointer; color: var(--ink);
+    }
+    .card:hover .card-figure .quick, .card-figure .quick:focus-visible { opacity: 1; transform: translateY(0); }
+    .card-body { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 14px; }
+    .card-name { font-family: var(--display); font-size: 18px; font-weight: 600; }
+    .card-note { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--steel); margin-top: 3px; }
+    .card-tag { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--steel-dim); margin-top: 6px; }
+    .card-price { font-family: var(--display); font-size: 18px; font-weight: 600; white-space: nowrap; }
+    .card-add { margin-top: 14px; }
+    .card-add .btn { width: 100%; justify-content: center; }
+
+    #no-results { padding: 60px 0; text-align: center; color: var(--steel-dim); font-family: var(--serif); font-style: italic; font-size: 17px; }
+
+    @media (max-width: 940px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 820px) {
+      .shop-layout { grid-template-columns: 1fr; }
+      .side { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } .side { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="announce">
+    <span>Free clinical consult with any set</span> <b>&middot;</b> <span>Free shipping over $50</span>
+  </div>
+
+  <header class="site-head">
+    <div class="shell">
+      <a class="wordmark" href="index.html" aria-label="Halo, home">
+        <span class="mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3">
+            <circle cx="20" cy="20" r="2.6" fill="currentColor" stroke="none"/><circle cx="20" cy="20" r="11"/><circle cx="20" cy="20" r="16.5" opacity=".45"/>
+          </svg>
+        </span>
+        <span class="letters">HALO</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="shop.html" aria-current="page">Shop</a>
+        <a href="story.html">Story</a>
+        <a href="clinic.html">Clinic</a>
+        <a class="cart-btn" href="#" data-open-cart aria-label="Open bag">Bag <span class="cart-count" data-cart-count data-count="0">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head shell">
+      <p class="eyebrow">The shelf &middot; 20 formulas</p>
+      <h1 class="display">Shop by the concern you actually have.</h1>
+      <p class="lede">Pick a category on the left, narrow by concern, and build a routine that stays short. Every formula lists what is in it and why.</p>
+    </section>
+
+    <section class="shell">
+      <div class="shop-layout">
+        <aside class="side" aria-label="Filters">
+          <div class="side-group">
+            <h3>Category</h3>
+            <ul class="side-list">
+              <li><button type="button" data-filter-cat="All" class="active">All products <span class="n">20</span></button></li>
+              <li><button type="button" data-filter-cat="Serums">Serums <span class="n">04</span></button></li>
+              <li><button type="button" data-filter-cat="Creams">Creams <span class="n">04</span></button></li>
+              <li><button type="button" data-filter-cat="Cleansers">Cleansers <span class="n">03</span></button></li>
+              <li><button type="button" data-filter-cat="Oils">Oils <span class="n">03</span></button></li>
+              <li><button type="button" data-filter-cat="Masks">Masks <span class="n">03</span></button></li>
+              <li><button type="button" data-filter-cat="Sets">Sets <span class="n">03</span></button></li>
+            </ul>
+          </div>
+          <div class="side-group">
+            <h3>Concern</h3>
+            <div class="concern-chips">
+              <button type="button" data-filter-concern="All" class="active">All</button>
+              <button type="button" data-filter-concern="Hydration">Hydration</button>
+              <button type="button" data-filter-concern="Brightening">Brightening</button>
+              <button type="button" data-filter-concern="Fine lines">Fine lines</button>
+              <button type="button" data-filter-concern="Sensitive">Sensitive</button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="shop-main">
+          <div class="results-bar">
+            <span id="result-count">20 products</span>
+            <span class="sort">Sorted by routine order</span>
+          </div>
+
+          <div class="grid" id="product-grid">
+            <!-- Serums -->
+            <article class="card" data-product data-cat="Serums" data-concern="Hydration">
+              <div class="card-figure"><span class="code">No. HY-01</span><img src="assets/prod-serum-a.jpg" alt="Reservoir triple hyaluronic serum" loading="lazy" /><button class="quick" type="button" data-quick="hy-01">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Reservoir</span><div class="card-note">Triple hyaluronic serum</div><div class="card-tag">Serum &middot; Hydration</div></div><span class="card-price">$46</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="hy-01">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Serums" data-concern="Brightening">
+              <div class="card-figure"><span class="code">No. BR-02</span><img src="assets/prod-serum-b.jpg" alt="Clearday vitamin C serum" loading="lazy" /><button class="quick" type="button" data-quick="br-02">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Clearday</span><div class="card-note">15% vitamin C complex</div><div class="card-tag">Serum &middot; Brightening</div></div><span class="card-price">$54</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="br-02">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Serums" data-concern="Fine lines">
+              <div class="card-figure"><span class="code">No. RE-03</span><img src="assets/prod-serum-a.jpg" alt="Nightshift retinal serum" loading="lazy" /><button class="quick" type="button" data-quick="re-03">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Nightshift</span><div class="card-note">Encapsulated retinal 0.1%</div><div class="card-tag">Serum &middot; Fine lines</div></div><span class="card-price">$62</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="re-03">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Serums" data-concern="Sensitive">
+              <div class="card-figure"><span class="code">No. CA-04</span><img src="assets/prod-serum-b.jpg" alt="Quiet Skin centella serum" loading="lazy" /><button class="quick" type="button" data-quick="ca-04">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Quiet Skin</span><div class="card-note">Centella and niacinamide</div><div class="card-tag">Serum &middot; Sensitive</div></div><span class="card-price">$44</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="ca-04">Add to bag</button></div>
+            </article>
+
+            <!-- Creams -->
+            <article class="card" data-product data-cat="Creams" data-concern="Hydration">
+              <div class="card-figure"><span class="code">No. MO-05</span><img src="assets/prod-cream-a.jpg" alt="Daylong barrier day cream" loading="lazy" /><button class="quick" type="button" data-quick="mo-05">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Daylong</span><div class="card-note">Barrier day cream</div><div class="card-tag">Cream &middot; Hydration</div></div><span class="card-price">$48</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="mo-05">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Creams" data-concern="Fine lines">
+              <div class="card-figure"><span class="code">No. MO-06</span><img src="assets/prod-cream-b.jpg" alt="Overnight peptide recovery cream" loading="lazy" /><button class="quick" type="button" data-quick="mo-06">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Overnight</span><div class="card-note">Peptide recovery cream</div><div class="card-tag">Cream &middot; Fine lines</div></div><span class="card-price">$58</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="mo-06">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Creams" data-concern="Sensitive">
+              <div class="card-figure"><span class="code">No. CA-07</span><img src="assets/prod-cream-a.jpg" alt="Bare Minimum fragrance free moisturiser" loading="lazy" /><button class="quick" type="button" data-quick="ca-07">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Bare Minimum</span><div class="card-note">Fragrance-free moisturiser</div><div class="card-tag">Cream &middot; Sensitive</div></div><span class="card-price">$42</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="ca-07">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Creams" data-concern="Brightening">
+              <div class="card-figure"><span class="code">No. BR-08</span><img src="assets/prod-cream-b.jpg" alt="Even Ground niacinamide tone cream" loading="lazy" /><button class="quick" type="button" data-quick="br-08">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Even Ground</span><div class="card-note">Niacinamide tone cream</div><div class="card-tag">Cream &middot; Brightening</div></div><span class="card-price">$52</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="br-08">Add to bag</button></div>
+            </article>
+
+            <!-- Cleansers -->
+            <article class="card" data-product data-cat="Cleansers" data-concern="Hydration">
+              <div class="card-figure"><span class="code">No. CL-09</span><img src="assets/prod-cleanser-a.jpg" alt="First Rinse cream gel cleanser" loading="lazy" /><button class="quick" type="button" data-quick="cl-09">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">First Rinse</span><div class="card-note">Cream gel cleanser</div><div class="card-tag">Cleanser &middot; Hydration</div></div><span class="card-price">$28</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="cl-09">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Cleansers" data-concern="Sensitive">
+              <div class="card-figure"><span class="code">No. CL-10</span><img src="assets/prod-cleanser-a.jpg" alt="Second Look milky cleanser" loading="lazy" /><button class="quick" type="button" data-quick="cl-10">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Second Look</span><div class="card-note">Milky makeup cleanser</div><div class="card-tag">Cleanser &middot; Sensitive</div></div><span class="card-price">$32</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="cl-10">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Cleansers" data-concern="Brightening">
+              <div class="card-figure"><span class="code">No. EX-11</span><img src="assets/prod-cleanser-a.jpg" alt="Fine Line PHA polish cleanser" loading="lazy" /><button class="quick" type="button" data-quick="ex-11">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Fine Line</span><div class="card-note">PHA polish cleanser</div><div class="card-tag">Cleanser &middot; Brightening</div></div><span class="card-price">$34</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="ex-11">Add to bag</button></div>
+            </article>
+
+            <!-- Oils -->
+            <article class="card" data-product data-cat="Oils" data-concern="Hydration">
+              <div class="card-figure"><span class="code">No. OI-12</span><img src="assets/prod-oil-a.jpg" alt="Golden Hour restoring oil" loading="lazy" /><button class="quick" type="button" data-quick="oi-12">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Golden Hour</span><div class="card-note">Nightly restoring oil</div><div class="card-tag">Oil &middot; Hydration</div></div><span class="card-price">$56</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="oi-12">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Oils" data-concern="Sensitive">
+              <div class="card-figure"><span class="code">No. CA-13</span><img src="assets/prod-oil-a.jpg" alt="Low Tide barrier repair oil" loading="lazy" /><button class="quick" type="button" data-quick="ca-13">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Low Tide</span><div class="card-note">Barrier repair oil</div><div class="card-tag">Oil &middot; Sensitive</div></div><span class="card-price">$50</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="ca-13">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Oils" data-concern="Brightening">
+              <div class="card-figure"><span class="code">No. BR-14</span><img src="assets/prod-oil-a.jpg" alt="Slow Light radiance oil" loading="lazy" /><button class="quick" type="button" data-quick="br-14">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Slow Light</span><div class="card-note">Radiance facial oil</div><div class="card-tag">Oil &middot; Brightening</div></div><span class="card-price">$58</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="br-14">Add to bag</button></div>
+            </article>
+
+            <!-- Masks -->
+            <article class="card" data-product data-cat="Masks" data-concern="Sensitive">
+              <div class="card-figure"><span class="code">No. MA-15</span><img src="assets/prod-mask-a.jpg" alt="Cold Compress cooling gel mask" loading="lazy" /><button class="quick" type="button" data-quick="ma-15">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Cold Compress</span><div class="card-note">Cooling gel mask</div><div class="card-tag">Mask &middot; Sensitive</div></div><span class="card-price">$38</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="ma-15">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Masks" data-concern="Brightening">
+              <div class="card-figure"><span class="code">No. DE-16</span><img src="assets/prod-mask-a.jpg" alt="Deep Draw clay clarity mask" loading="lazy" /><button class="quick" type="button" data-quick="de-16">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Deep Draw</span><div class="card-note">Clay clarity mask</div><div class="card-tag">Mask &middot; Brightening</div></div><span class="card-price">$40</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="de-16">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Masks" data-concern="Hydration">
+              <div class="card-figure"><span class="code">No. HY-17</span><img src="assets/prod-mask-a.jpg" alt="Long Soak overnight water mask" loading="lazy" /><button class="quick" type="button" data-quick="hy-17">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Long Soak</span><div class="card-note">Overnight water mask</div><div class="card-tag">Mask &middot; Hydration</div></div><span class="card-price">$42</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="hy-17">Add to bag</button></div>
+            </article>
+
+            <!-- Sets -->
+            <article class="card" data-product data-cat="Sets" data-concern="Hydration">
+              <div class="card-figure"><span class="code">No. SE-18</span><img src="assets/prod-serum-a.jpg" alt="The Short List starter set" loading="lazy" /><button class="quick" type="button" data-quick="se-18">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">The Short List</span><div class="card-note">Cleanse, serum, moisturise</div><div class="card-tag">Set &middot; Hydration</div></div><span class="card-price">$96</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="se-18">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Sets" data-concern="Fine lines">
+              <div class="card-figure"><span class="code">No. SE-19</span><img src="assets/prod-cream-b.jpg" alt="Night Protocol evening set" loading="lazy" /><button class="quick" type="button" data-quick="se-19">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Night Protocol</span><div class="card-note">The evening renewal set</div><div class="card-tag">Set &middot; Fine lines</div></div><span class="card-price">$118</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="se-19">Add to bag</button></div>
+            </article>
+            <article class="card" data-product data-cat="Sets" data-concern="Sensitive">
+              <div class="card-figure"><span class="code">No. SE-20</span><img src="assets/prod-cream-a.jpg" alt="Calm Kit barrier rescue set" loading="lazy" /><button class="quick" type="button" data-quick="se-20">Quick view</button></div>
+              <div class="card-body"><div><span class="card-name">Calm Kit</span><div class="card-note">Barrier rescue trio</div><div class="card-tag">Set &middot; Sensitive</div></div><span class="card-price">$88</span></div>
+              <div class="card-add"><button class="btn btn--sm" type="button" data-add="se-20">Add to bag</button></div>
+            </article>
+          </div>
+          <p id="no-results" hidden>Nothing matches that pairing yet. Widen a filter to see more.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="shell">
+      <div class="foot-brand">
+        <span class="letters">HALO</span>
+        <p class="foot-note">Clinical dermatology skincare. Short ingredient lists, dermatologist tested formulas, and a routine you can actually keep.</p>
+      </div>
+      <div class="foot-col"><h4>Shop</h4><a href="shop.html">All products</a><a href="shop.html">Serums</a><a href="shop.html">Sets</a></div>
+      <div class="foot-col"><h4>Care</h4><a href="clinic.html">Book a consult</a><a href="clinic.html">Contact</a><a href="clinic.html">Shipping &amp; returns</a></div>
+      <div class="foot-legal"><span>&copy; 2026 Halo Skincare</span><span>A demonstration site for farcasts adaptive testing</span></div>
+    </div>
+  </footer>
+
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping bag">
+    <div class="cart-head"><h2>Your bag</h2><button class="icon-btn" type="button" data-close="cart" aria-label="Close bag"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-foot">
+      <div class="cart-total"><span class="lbl">Subtotal</span><span class="amt" id="cart-total">$0</span></div>
+      <a class="btn btn--slate" href="clinic.html">Checkout <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      <p class="fine">Demonstration bag. Nothing is charged.</p>
+    </div>
+  </aside>
+
+  <div class="modal" id="quickview" role="dialog" aria-modal="true" aria-label="Product quick view">
+    <div class="modal-card">
+      <button class="icon-btn qv-close" type="button" data-close="quickview" aria-label="Close quick view"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div class="qv-figure"><img src="assets/prod-serum-a.jpg" alt="" /></div>
+      <div class="qv-body">
+        <span class="qv-tag"></span>
+        <h3 class="display"></h3>
+        <span class="qv-code"></span>
+        <p class="qv-desc"></p>
+        <dl class="qv-spec"></dl>
+        <div class="qv-buy"><span class="price qv-price"></span><button class="btn btn--slate" type="button" data-qv-add="">Add to bag <span class="arrow" aria-hidden="true">&rarr;</span></button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pop" id="newsletter-pop" role="dialog" aria-modal="true" aria-label="Newsletter">
+    <div class="pop-card">
+      <button class="icon-btn qv-close" type="button" data-close="pop" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <span class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="20" cy="20" r="2.4" fill="currentColor" stroke="none"/><circle cx="20" cy="20" r="11"/><circle cx="20" cy="20" r="16.5" opacity=".45"/></svg></span>
+      <h2>Ten percent, and a clearer routine.</h2>
+      <p>Join the list for a first order discount and the occasional note from the lab. No noise.</p>
+      <form class="pop-form" id="pop-form"><input type="email" name="email" placeholder="you@email.com" autocomplete="email" required aria-label="Email address" /><button class="btn btn--slate" type="submit">Join</button></form>
+      <p class="pop-fine">A demonstration form. Nothing is sent.</p>
+    </div>
+  </div>
+
+  <div class="sticky-promo" id="sticky-promo">
+    <span class="sp-txt"><b>New</b> &nbsp;The Short List routine, $96</span>
+    <a class="btn btn--slate" href="shop.html">Shop the set</a>
+    <button class="icon-btn" type="button" data-close="promo" aria-label="Dismiss promotion"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+
+  <script src="store.js"></script>
+  <script src="https://dev.farcasts.com/farcasts.js" data-cfasync="false" data-farcasts-project="p_c2d58db6-f83d-4453-9de2-6e2c937bc242"></script>
+  <script async src="https://dev.farcasts.com/farcasts-track.js" data-cfasync="false" data-farcasts-project="p_c2d58db6-f83d-4453-9de2-6e2c937bc242" data-farcasts-track-endpoint="https://t.farcasts.com" data-farcasts-track-key="phc_CzXwcg28Mo4jd6gqGcXaTSQUXFjxFFjnMvfXhrqwiVsc"></script>
+</body>
+</html>
