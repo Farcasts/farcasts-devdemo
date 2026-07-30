@@ -60,8 +60,10 @@
       padding: 9px 12px; text-align: center; cursor: pointer; color: var(--ink);
     }
     .card:hover .card-figure .quick, .card-figure .quick:focus-visible { opacity: 1; transform: translateY(0); }
+    .card-link { display: block; width: 100%; height: 100%; }
     .card-body { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 14px; }
-    .card-name { font-family: var(--display); font-size: 18px; font-weight: 600; }
+    .card-name { font-family: var(--display); font-size: 18px; font-weight: 600; text-decoration: none; color: var(--ink); transition: color .2s; }
+    a.card-name:hover { color: var(--slate); }
     .card-note { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--steel); margin-top: 3px; }
     .card-tag { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--steel-dim); margin-top: 6px; }
     .card-price { font-family: var(--display); font-size: 18px; font-weight: 600; white-space: nowrap; }
@@ -145,113 +147,113 @@
           <div class="grid" id="product-grid">
             <!-- Serums -->
             <article class="card" data-product data-cat="Serums" data-concern="Hydration">
-              <div class="card-figure"><span class="code">No. HY-01</span><img src="assets/prod-serum-a.jpg" alt="Reservoir triple hyaluronic serum" loading="lazy" /><button class="quick" type="button" data-quick="hy-01">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Reservoir</span><div class="card-note">Triple hyaluronic serum</div><div class="card-tag">Serum &middot; Hydration</div></div><span class="card-price">$46</span></div>
+              <div class="card-figure"><span class="code">No. HY-01</span><a class="card-link" href="products/hy-01.html" aria-label="View product"><img src="assets/prod-serum-a.jpg" alt="Reservoir triple hyaluronic serum" loading="lazy" /></a><button class="quick" type="button" data-quick="hy-01">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/hy-01.html">Reservoir</a><div class="card-note">Triple hyaluronic serum</div><div class="card-tag">Serum &middot; Hydration</div></div><span class="card-price">$46</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="hy-01">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Serums" data-concern="Brightening">
-              <div class="card-figure"><span class="code">No. BR-02</span><img src="assets/prod-serum-b.jpg" alt="Clearday vitamin C serum" loading="lazy" /><button class="quick" type="button" data-quick="br-02">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Clearday</span><div class="card-note">15% vitamin C complex</div><div class="card-tag">Serum &middot; Brightening</div></div><span class="card-price">$54</span></div>
+              <div class="card-figure"><span class="code">No. BR-02</span><a class="card-link" href="products/br-02.html" aria-label="View product"><img src="assets/prod-serum-b.jpg" alt="Clearday vitamin C serum" loading="lazy" /></a><button class="quick" type="button" data-quick="br-02">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/br-02.html">Clearday</a><div class="card-note">15% vitamin C complex</div><div class="card-tag">Serum &middot; Brightening</div></div><span class="card-price">$54</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="br-02">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Serums" data-concern="Fine lines">
-              <div class="card-figure"><span class="code">No. RE-03</span><img src="assets/prod-serum-a.jpg" alt="Nightshift retinal serum" loading="lazy" /><button class="quick" type="button" data-quick="re-03">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Nightshift</span><div class="card-note">Encapsulated retinal 0.1%</div><div class="card-tag">Serum &middot; Fine lines</div></div><span class="card-price">$62</span></div>
+              <div class="card-figure"><span class="code">No. RE-03</span><a class="card-link" href="products/re-03.html" aria-label="View product"><img src="assets/prod-serum-a.jpg" alt="Nightshift retinal serum" loading="lazy" /></a><button class="quick" type="button" data-quick="re-03">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/re-03.html">Nightshift</a><div class="card-note">Encapsulated retinal 0.1%</div><div class="card-tag">Serum &middot; Fine lines</div></div><span class="card-price">$62</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="re-03">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Serums" data-concern="Sensitive">
-              <div class="card-figure"><span class="code">No. CA-04</span><img src="assets/prod-serum-b.jpg" alt="Quiet Skin centella serum" loading="lazy" /><button class="quick" type="button" data-quick="ca-04">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Quiet Skin</span><div class="card-note">Centella and niacinamide</div><div class="card-tag">Serum &middot; Sensitive</div></div><span class="card-price">$44</span></div>
+              <div class="card-figure"><span class="code">No. CA-04</span><a class="card-link" href="products/ca-04.html" aria-label="View product"><img src="assets/prod-serum-b.jpg" alt="Quiet Skin centella serum" loading="lazy" /></a><button class="quick" type="button" data-quick="ca-04">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/ca-04.html">Quiet Skin</a><div class="card-note">Centella and niacinamide</div><div class="card-tag">Serum &middot; Sensitive</div></div><span class="card-price">$44</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="ca-04">Add to bag</button></div>
             </article>
 
             <!-- Creams -->
             <article class="card" data-product data-cat="Creams" data-concern="Hydration">
-              <div class="card-figure"><span class="code">No. MO-05</span><img src="assets/prod-cream-a.jpg" alt="Daylong barrier day cream" loading="lazy" /><button class="quick" type="button" data-quick="mo-05">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Daylong</span><div class="card-note">Barrier day cream</div><div class="card-tag">Cream &middot; Hydration</div></div><span class="card-price">$48</span></div>
+              <div class="card-figure"><span class="code">No. MO-05</span><a class="card-link" href="products/mo-05.html" aria-label="View product"><img src="assets/prod-cream-a.jpg" alt="Daylong barrier day cream" loading="lazy" /></a><button class="quick" type="button" data-quick="mo-05">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/mo-05.html">Daylong</a><div class="card-note">Barrier day cream</div><div class="card-tag">Cream &middot; Hydration</div></div><span class="card-price">$48</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="mo-05">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Creams" data-concern="Fine lines">
-              <div class="card-figure"><span class="code">No. MO-06</span><img src="assets/prod-cream-b.jpg" alt="Overnight peptide recovery cream" loading="lazy" /><button class="quick" type="button" data-quick="mo-06">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Overnight</span><div class="card-note">Peptide recovery cream</div><div class="card-tag">Cream &middot; Fine lines</div></div><span class="card-price">$58</span></div>
+              <div class="card-figure"><span class="code">No. MO-06</span><a class="card-link" href="products/mo-06.html" aria-label="View product"><img src="assets/prod-cream-b.jpg" alt="Overnight peptide recovery cream" loading="lazy" /></a><button class="quick" type="button" data-quick="mo-06">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/mo-06.html">Overnight</a><div class="card-note">Peptide recovery cream</div><div class="card-tag">Cream &middot; Fine lines</div></div><span class="card-price">$58</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="mo-06">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Creams" data-concern="Sensitive">
-              <div class="card-figure"><span class="code">No. CA-07</span><img src="assets/prod-cream-a.jpg" alt="Bare Minimum fragrance free moisturiser" loading="lazy" /><button class="quick" type="button" data-quick="ca-07">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Bare Minimum</span><div class="card-note">Fragrance-free moisturiser</div><div class="card-tag">Cream &middot; Sensitive</div></div><span class="card-price">$42</span></div>
+              <div class="card-figure"><span class="code">No. CA-07</span><a class="card-link" href="products/ca-07.html" aria-label="View product"><img src="assets/prod-cream-a.jpg" alt="Bare Minimum fragrance free moisturiser" loading="lazy" /></a><button class="quick" type="button" data-quick="ca-07">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/ca-07.html">Bare Minimum</a><div class="card-note">Fragrance-free moisturiser</div><div class="card-tag">Cream &middot; Sensitive</div></div><span class="card-price">$42</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="ca-07">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Creams" data-concern="Brightening">
-              <div class="card-figure"><span class="code">No. BR-08</span><img src="assets/prod-cream-b.jpg" alt="Even Ground niacinamide tone cream" loading="lazy" /><button class="quick" type="button" data-quick="br-08">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Even Ground</span><div class="card-note">Niacinamide tone cream</div><div class="card-tag">Cream &middot; Brightening</div></div><span class="card-price">$52</span></div>
+              <div class="card-figure"><span class="code">No. BR-08</span><a class="card-link" href="products/br-08.html" aria-label="View product"><img src="assets/prod-cream-b.jpg" alt="Even Ground niacinamide tone cream" loading="lazy" /></a><button class="quick" type="button" data-quick="br-08">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/br-08.html">Even Ground</a><div class="card-note">Niacinamide tone cream</div><div class="card-tag">Cream &middot; Brightening</div></div><span class="card-price">$52</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="br-08">Add to bag</button></div>
             </article>
 
             <!-- Cleansers -->
             <article class="card" data-product data-cat="Cleansers" data-concern="Hydration">
-              <div class="card-figure"><span class="code">No. CL-09</span><img src="assets/prod-cleanser-a.jpg" alt="First Rinse cream gel cleanser" loading="lazy" /><button class="quick" type="button" data-quick="cl-09">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">First Rinse</span><div class="card-note">Cream gel cleanser</div><div class="card-tag">Cleanser &middot; Hydration</div></div><span class="card-price">$28</span></div>
+              <div class="card-figure"><span class="code">No. CL-09</span><a class="card-link" href="products/cl-09.html" aria-label="View product"><img src="assets/prod-cleanser-a.jpg" alt="First Rinse cream gel cleanser" loading="lazy" /></a><button class="quick" type="button" data-quick="cl-09">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/cl-09.html">First Rinse</a><div class="card-note">Cream gel cleanser</div><div class="card-tag">Cleanser &middot; Hydration</div></div><span class="card-price">$28</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="cl-09">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Cleansers" data-concern="Sensitive">
-              <div class="card-figure"><span class="code">No. CL-10</span><img src="assets/prod-cleanser-a.jpg" alt="Second Look milky cleanser" loading="lazy" /><button class="quick" type="button" data-quick="cl-10">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Second Look</span><div class="card-note">Milky makeup cleanser</div><div class="card-tag">Cleanser &middot; Sensitive</div></div><span class="card-price">$32</span></div>
+              <div class="card-figure"><span class="code">No. CL-10</span><a class="card-link" href="products/cl-10.html" aria-label="View product"><img src="assets/prod-cleanser-a.jpg" alt="Second Look milky cleanser" loading="lazy" /></a><button class="quick" type="button" data-quick="cl-10">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/cl-10.html">Second Look</a><div class="card-note">Milky makeup cleanser</div><div class="card-tag">Cleanser &middot; Sensitive</div></div><span class="card-price">$32</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="cl-10">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Cleansers" data-concern="Brightening">
-              <div class="card-figure"><span class="code">No. EX-11</span><img src="assets/prod-cleanser-a.jpg" alt="Fine Line PHA polish cleanser" loading="lazy" /><button class="quick" type="button" data-quick="ex-11">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Fine Line</span><div class="card-note">PHA polish cleanser</div><div class="card-tag">Cleanser &middot; Brightening</div></div><span class="card-price">$34</span></div>
+              <div class="card-figure"><span class="code">No. EX-11</span><a class="card-link" href="products/ex-11.html" aria-label="View product"><img src="assets/prod-cleanser-a.jpg" alt="Fine Line PHA polish cleanser" loading="lazy" /></a><button class="quick" type="button" data-quick="ex-11">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/ex-11.html">Fine Line</a><div class="card-note">PHA polish cleanser</div><div class="card-tag">Cleanser &middot; Brightening</div></div><span class="card-price">$34</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="ex-11">Add to bag</button></div>
             </article>
 
             <!-- Oils -->
             <article class="card" data-product data-cat="Oils" data-concern="Hydration">
-              <div class="card-figure"><span class="code">No. OI-12</span><img src="assets/prod-oil-a.jpg" alt="Golden Hour restoring oil" loading="lazy" /><button class="quick" type="button" data-quick="oi-12">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Golden Hour</span><div class="card-note">Nightly restoring oil</div><div class="card-tag">Oil &middot; Hydration</div></div><span class="card-price">$56</span></div>
+              <div class="card-figure"><span class="code">No. OI-12</span><a class="card-link" href="products/oi-12.html" aria-label="View product"><img src="assets/prod-oil-a.jpg" alt="Golden Hour restoring oil" loading="lazy" /></a><button class="quick" type="button" data-quick="oi-12">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/oi-12.html">Golden Hour</a><div class="card-note">Nightly restoring oil</div><div class="card-tag">Oil &middot; Hydration</div></div><span class="card-price">$56</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="oi-12">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Oils" data-concern="Sensitive">
-              <div class="card-figure"><span class="code">No. CA-13</span><img src="assets/prod-oil-a.jpg" alt="Low Tide barrier repair oil" loading="lazy" /><button class="quick" type="button" data-quick="ca-13">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Low Tide</span><div class="card-note">Barrier repair oil</div><div class="card-tag">Oil &middot; Sensitive</div></div><span class="card-price">$50</span></div>
+              <div class="card-figure"><span class="code">No. CA-13</span><a class="card-link" href="products/ca-13.html" aria-label="View product"><img src="assets/prod-oil-a.jpg" alt="Low Tide barrier repair oil" loading="lazy" /></a><button class="quick" type="button" data-quick="ca-13">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/ca-13.html">Low Tide</a><div class="card-note">Barrier repair oil</div><div class="card-tag">Oil &middot; Sensitive</div></div><span class="card-price">$50</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="ca-13">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Oils" data-concern="Brightening">
-              <div class="card-figure"><span class="code">No. BR-14</span><img src="assets/prod-oil-a.jpg" alt="Slow Light radiance oil" loading="lazy" /><button class="quick" type="button" data-quick="br-14">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Slow Light</span><div class="card-note">Radiance facial oil</div><div class="card-tag">Oil &middot; Brightening</div></div><span class="card-price">$58</span></div>
+              <div class="card-figure"><span class="code">No. BR-14</span><a class="card-link" href="products/br-14.html" aria-label="View product"><img src="assets/prod-oil-a.jpg" alt="Slow Light radiance oil" loading="lazy" /></a><button class="quick" type="button" data-quick="br-14">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/br-14.html">Slow Light</a><div class="card-note">Radiance facial oil</div><div class="card-tag">Oil &middot; Brightening</div></div><span class="card-price">$58</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="br-14">Add to bag</button></div>
             </article>
 
             <!-- Masks -->
             <article class="card" data-product data-cat="Masks" data-concern="Sensitive">
-              <div class="card-figure"><span class="code">No. MA-15</span><img src="assets/prod-mask-a.jpg" alt="Cold Compress cooling gel mask" loading="lazy" /><button class="quick" type="button" data-quick="ma-15">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Cold Compress</span><div class="card-note">Cooling gel mask</div><div class="card-tag">Mask &middot; Sensitive</div></div><span class="card-price">$38</span></div>
+              <div class="card-figure"><span class="code">No. MA-15</span><a class="card-link" href="products/ma-15.html" aria-label="View product"><img src="assets/prod-mask-a.jpg" alt="Cold Compress cooling gel mask" loading="lazy" /></a><button class="quick" type="button" data-quick="ma-15">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/ma-15.html">Cold Compress</a><div class="card-note">Cooling gel mask</div><div class="card-tag">Mask &middot; Sensitive</div></div><span class="card-price">$38</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="ma-15">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Masks" data-concern="Brightening">
-              <div class="card-figure"><span class="code">No. DE-16</span><img src="assets/prod-mask-a.jpg" alt="Deep Draw clay clarity mask" loading="lazy" /><button class="quick" type="button" data-quick="de-16">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Deep Draw</span><div class="card-note">Clay clarity mask</div><div class="card-tag">Mask &middot; Brightening</div></div><span class="card-price">$40</span></div>
+              <div class="card-figure"><span class="code">No. DE-16</span><a class="card-link" href="products/de-16.html" aria-label="View product"><img src="assets/prod-mask-a.jpg" alt="Deep Draw clay clarity mask" loading="lazy" /></a><button class="quick" type="button" data-quick="de-16">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/de-16.html">Deep Draw</a><div class="card-note">Clay clarity mask</div><div class="card-tag">Mask &middot; Brightening</div></div><span class="card-price">$40</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="de-16">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Masks" data-concern="Hydration">
-              <div class="card-figure"><span class="code">No. HY-17</span><img src="assets/prod-mask-a.jpg" alt="Long Soak overnight water mask" loading="lazy" /><button class="quick" type="button" data-quick="hy-17">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Long Soak</span><div class="card-note">Overnight water mask</div><div class="card-tag">Mask &middot; Hydration</div></div><span class="card-price">$42</span></div>
+              <div class="card-figure"><span class="code">No. HY-17</span><a class="card-link" href="products/hy-17.html" aria-label="View product"><img src="assets/prod-mask-a.jpg" alt="Long Soak overnight water mask" loading="lazy" /></a><button class="quick" type="button" data-quick="hy-17">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/hy-17.html">Long Soak</a><div class="card-note">Overnight water mask</div><div class="card-tag">Mask &middot; Hydration</div></div><span class="card-price">$42</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="hy-17">Add to bag</button></div>
             </article>
 
             <!-- Sets -->
             <article class="card" data-product data-cat="Sets" data-concern="Hydration">
-              <div class="card-figure"><span class="code">No. SE-18</span><img src="assets/prod-serum-a.jpg" alt="The Short List starter set" loading="lazy" /><button class="quick" type="button" data-quick="se-18">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">The Short List</span><div class="card-note">Cleanse, serum, moisturise</div><div class="card-tag">Set &middot; Hydration</div></div><span class="card-price">$96</span></div>
+              <div class="card-figure"><span class="code">No. SE-18</span><a class="card-link" href="products/se-18.html" aria-label="View product"><img src="assets/prod-serum-a.jpg" alt="The Short List starter set" loading="lazy" /></a><button class="quick" type="button" data-quick="se-18">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/se-18.html">The Short List</a><div class="card-note">Cleanse, serum, moisturise</div><div class="card-tag">Set &middot; Hydration</div></div><span class="card-price">$96</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="se-18">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Sets" data-concern="Fine lines">
-              <div class="card-figure"><span class="code">No. SE-19</span><img src="assets/prod-cream-b.jpg" alt="Night Protocol evening set" loading="lazy" /><button class="quick" type="button" data-quick="se-19">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Night Protocol</span><div class="card-note">The evening renewal set</div><div class="card-tag">Set &middot; Fine lines</div></div><span class="card-price">$118</span></div>
+              <div class="card-figure"><span class="code">No. SE-19</span><a class="card-link" href="products/se-19.html" aria-label="View product"><img src="assets/prod-cream-b.jpg" alt="Night Protocol evening set" loading="lazy" /></a><button class="quick" type="button" data-quick="se-19">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/se-19.html">Night Protocol</a><div class="card-note">The evening renewal set</div><div class="card-tag">Set &middot; Fine lines</div></div><span class="card-price">$118</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="se-19">Add to bag</button></div>
             </article>
             <article class="card" data-product data-cat="Sets" data-concern="Sensitive">
-              <div class="card-figure"><span class="code">No. SE-20</span><img src="assets/prod-cream-a.jpg" alt="Calm Kit barrier rescue set" loading="lazy" /><button class="quick" type="button" data-quick="se-20">Quick view</button></div>
-              <div class="card-body"><div><span class="card-name">Calm Kit</span><div class="card-note">Barrier rescue trio</div><div class="card-tag">Set &middot; Sensitive</div></div><span class="card-price">$88</span></div>
+              <div class="card-figure"><span class="code">No. SE-20</span><a class="card-link" href="products/se-20.html" aria-label="View product"><img src="assets/prod-cream-a.jpg" alt="Calm Kit barrier rescue set" loading="lazy" /></a><button class="quick" type="button" data-quick="se-20">Quick view</button></div>
+              <div class="card-body"><div><a class="card-name" href="products/se-20.html">Calm Kit</a><div class="card-note">Barrier rescue trio</div><div class="card-tag">Set &middot; Sensitive</div></div><span class="card-price">$88</span></div>
               <div class="card-add"><button class="btn btn--sm" type="button" data-add="se-20">Add to bag</button></div>
             </article>
           </div>
@@ -295,6 +297,7 @@
         <p class="qv-desc"></p>
         <dl class="qv-spec"></dl>
         <div class="qv-buy"><span class="price qv-price"></span><button class="btn btn--slate" type="button" data-qv-add="">Add to bag <span class="arrow" aria-hidden="true">&rarr;</span></button></div>
+        <a class="qv-full" href="#">View full page <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </div>
     </div>
   </div>
