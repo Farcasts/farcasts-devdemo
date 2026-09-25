@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/farcasts/:path*",
+      "destination": "https://farcasts-page-host-staging-696704961897.us-central1.run.app/p_c2d58db6-f83d-4453-9de2-6e2c937bc242/farcasts/:path*"
+    }
+  ]
+}
